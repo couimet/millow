@@ -85,5 +85,9 @@ describe('Deployment', () => {
       const result = await escrow.escrowAmount(1);
       expect(result).to.be.equal(tokens(5))
     })
+
+    it('should throw an error is listing is attempted by non-seller', async () => {
+      await expect(escrow.connect(buyer).list(1, buyer.address, tokens(10), tokens(5))).to.be.revertedWith('Only seller can call this method');
+    })
   })
 })
