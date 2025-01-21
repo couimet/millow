@@ -100,5 +100,7 @@ contract Escrow {
 
         (bool success,) = payable(seller).call{value: address(this).balance}("");
         require(success);
+
+        IERC721(nftAddress).transferFrom(address(this), buyer[_nftID], _nftID);
     }
 }
