@@ -120,17 +120,26 @@ describe('Deployment', () => {
 
   describe('Approval ', () => {
     it('Updates approval status', async () => {
+      // Block for the buyer to approve
       let transaction = await escrow.connect(buyer).approveSale(1);
       await transaction.wait();
-
+      // We're explicitly testing the 3 addresses after every step to ensure the approval status is updated correctly
+      expect(await escrow.approval(1, buyer.address)).to.be.equal(true);
+      expect(await escrow.approval(1, seller.address)).to.be.equal(false);
+      expect(await escrow.approval(1, lender.address)).to.be.equal(false);
+      
+      // Block for the seller to approve
       transaction = await escrow.connect(seller).approveSale(1);
       await transaction.wait();
-
+      expect(await escrow.approval(1, buyer.address)).to.be.equal(true); // Should remain unchanged from previous step
+      expect(await escrow.approval(1, seller.address)).to.be.equal(true);
+      expect(await escrow.approval(1, lender.address)).to.be.equal(false);
+      
+      // Block for the lender to approve
       transaction = await escrow.connect(lender).approveSale(1);
       await transaction.wait();
-
-      expect(await escrow.approval(1, buyer.address)).to.be.equal(true);
-      expect(await escrow.approval(1, seller.address)).to.be.equal(true);
+      expect(await escrow.approval(1, buyer.address)).to.be.equal(true); // Should remain unchanged from previous step
+      expect(await escrow.approval(1, seller.address)).to.be.equal(true); // Should remain unchanged from previous step
       expect(await escrow.approval(1, lender.address)).to.be.equal(true);
     })
   })
