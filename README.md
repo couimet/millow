@@ -6,7 +6,7 @@ I created the `step_by_step_progress` branch to serve as a _follow-along_ branch
 
 Each commit in this branch corresponds to a specific point in the tutorial, and the commit messages include timestamps to match the YouTube video; [see the commits for the details](https://github.com/couimet/millow/commits/step_by_step_progress/).
 
-> **Note:** The rest of this `README` is identical to the original file.
+> **Note:** The rest of this `README` is identical to the original file, except for the addition of a small note below about using `nvm` before running `npm install`.
 
 ## Technology Stack & Tools
 
@@ -23,6 +23,9 @@ Each commit in this branch corresponds to a specific point in the tutorial, and 
 ### 1. Clone/Download the Repository
 
 ### 2. Install Dependencies:
+
+> 💡 pro-tip: in order to run the same version of `Node.js` as used in https://youtu.be/C4blK6X-D_4, please run "`nvm use || nvm install`" before running "`npm install`".
+
 `$ npm install`
 
 ### 3. Run tests
