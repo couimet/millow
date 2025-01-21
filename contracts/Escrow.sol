@@ -84,4 +84,21 @@ contract Escrow {
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
+
+    // Finalize Sale
+    // -> Require Inspection status (add more items here, like appraisal)
+    // -> Require sale to be authorized
+    // -> Require funds to be correct amount
+    // -> Transfer NFT to buyer
+    // -> Transfer Funds to Seller
+    function finalizeSale(uint256 _nftID) public {
+        require(inspectionPassed[_nftID]);
+        require(approval[_nftID][buyer[_nftID]]);
+        require(approval[_nftID][seller]);
+        require(approval[_nftID][lender]);
+        require(address(this).balance >= purchasePrice[_nftID]);
+
+        (bool success,) = payable(seller).call{value: address(this).balance}("");
+        require(success);
+    }
 }
