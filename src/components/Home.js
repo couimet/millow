@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react';
 import close from '../assets/close.svg';
 
 const Home = ({ home, provider, escrow, togglePop }) => {
+    const [hasBought, setHasBought] = useState(false)
+    const [hasLended, setHasLended] = useState(false)
+    const [hasInspected, setHasInspected] = useState(false)
+    const [hasSold, setHasSold] = useState(false)
 
     const [buyer, setBuyer] = useState(null)
     const [lender, setLender] = useState(null)
@@ -16,20 +20,32 @@ const Home = ({ home, provider, escrow, togglePop }) => {
       const buyer = await escrow.buyer(home.id)
       setBuyer(buyer)
 
+      const hasBought = await escrow.approval(home.id, buyer)
+      setHasBought(hasBought)
+      
       // -- Seller
 
       const seller = await escrow.seller()
       setSeller(seller)
+
+      const hasSold = await escrow.approval(home.id, seller)
+      setHasSold(hasSold)
 
       // -- Lender
 
       const lender = await escrow.lender()
       setLender(lender)
 
+      const hasLended = await escrow.approval(home.id, lender)
+      setHasLended(hasLended)
+
       // -- Inspector
 
       const inspector = await escrow.inspector()
       setInspector(inspector)
+
+      const hasInspected = await escrow.inspectionPassed(home.id)
+      setHasInspected(hasInspected)
     }
 
     return (
