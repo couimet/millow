@@ -40,6 +40,25 @@ function App() {
 
         <h3>Welcome to Millow</h3>
 
+        <hr />
+
+        <div className='cards'>
+          <div className='card'>
+            <div className='card__image'>
+              <img src="" alt='Home' />
+            </div>
+            <div className='card__info'>
+              <h4>1 ETH</h4>
+              <p>
+                <strong>1</strong> bds |
+                <strong>2</strong> ba |
+                <strong>3</strong> sqft
+              </p>
+              <p>1234 Elm St</p>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
