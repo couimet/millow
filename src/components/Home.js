@@ -57,6 +57,11 @@ const Home = ({ home, provider, escrow, togglePop }) => {
       setOwner(owner)
     }
 
+    useEffect(() => {
+      fetchDetails()
+      fetchOwner()
+    }, [hasSold])
+
     return (
         <div className="home">
           <div className="home__details">
