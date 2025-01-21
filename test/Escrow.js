@@ -90,4 +90,13 @@ describe('Deployment', () => {
       await expect(escrow.connect(buyer).list(1, buyer.address, tokens(10), tokens(5))).to.be.revertedWith('Only seller can call this method');
     })
   })
+
+  describe('Deposits', () => {
+    it('Updates contract balance', async () => {
+      const transaction = await escrow.connect(buyer).depositEarnest(1, { value: tokens(5) });
+      await transaction.wait();
+      const result = await escrow.getBalance()
+      expect(result).to.be.equal(tokens(5))
+    })
+  })
 })
